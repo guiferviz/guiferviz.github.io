@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>
+            {% if page.title %}
+                {{ page.title | escape }}
+            {% else %}
+                {{ site.title | escape }}
+            {% endif %}
+        </title>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="/css/highlighting-github.css">
+		<!-- <link rel="stylesheet" href="/lib/revealjs/lib/css/zenburn.css"> -->
+
+        <!-- Theme used for the slides -->
+		<link rel="stylesheet" href="/lib/revealjs/css/reveal.css">
+		<link rel="stylesheet" href="/lib/revealjs/css/theme/white.css">
+
+		<!-- Printing and PDF exports. Add "?print-pdf" to the URL and print that page. -->
+		<script>
+			var link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.type = "text/css";
+			link.href = window.location.search.match(/print-pdf/gi) ?
+			    "/lib/revealjs/css/print/pdf.css" :
+			    "/lib/revealjs/css/print/paper.css";
+			document.getElementsByTagName("head")[0].appendChild(link);
+		</script>
+		
+		{% include lib-loader.html %}
+
+        {% include google-analytics.html %}
+	</head>
+
+	<body>
+	    <script src="/lib/revealjs/lib/js/head.min.js"></script>
+		<script src="/lib/revealjs/js/reveal.js"></script>
+
+		<div class="reveal">
+			<div class="slides">
+				<!-- Sections here -->
+				{{ content }}
+			</div>
+		</div>
+
+		<script>
+		window.addEventListener('load', function () {
+			Reveal.initialize({
+				center: true,
+				slideNumber: true,
+				dependencies: [
+					{ src: '/lib/revealjs/plugin/markdown/marked.js' },
+					{ src: '/lib/revealjs/plugin/markdown/markdown.js' },
+					{ src: '/lib/revealjs/plugin/notes/notes.js', async: true },
+					{ src: '/lib/revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlighting(); } },
+					{ src: '/lib/revealjs/plugin/math/math.js', async: true }
+				]
+			});
+		});
+		</script>
+	</body>
+
+</html>

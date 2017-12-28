@@ -1,0 +1,23 @@
+
+title: Guiferviz's blog
+email: guiferviz@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  No trates a las redes neuronales como si fueran personas... no les gusta.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://guiferviz.github.io"
+
+# Social networks.
+twitter_username: guiferviz
+github_username:  guiferviz
+linkedin_username:  guiferviz
+
+# Build settings.
+markdown: kramdown
+safe: true  # If safe is true no plugins will be executed.
+
+# Do not include the next files in the generated site.
+# Hidden files are excluded by default.
+exclude:
+- README.md
+- run_server.sh
+- run_jupyter.sh

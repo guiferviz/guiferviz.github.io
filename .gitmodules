@@ -1,0 +1,9 @@
+[submodule "lib/reveal"]
+	path = lib/revealjs
+	url = https://github.com/hakimel/reveal.js.git
+[submodule "lib/threejs"]
+	path = lib/threejs
+	url = https://github.com/mrdoob/three.js.git
+[submodule "lib/happyml-js"]
+	path = lib/happyml-js
+	url = https://github.com/guiferviz/happyml-js.git
