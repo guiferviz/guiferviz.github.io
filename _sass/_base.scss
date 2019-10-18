@@ -48,7 +48,6 @@ ul, ol, dl, figure,
 img {
     max-width: 100%;
     vertical-align: middle;
-    margin: auto;
 }
 
 figcaption {
@@ -105,7 +104,7 @@ a {
     text-decoration: none;
 
     &:visited {
-        color: darken($brand-color, 15%);
+        color: darken($brand-color, 5%);
     }
 
     &:hover {

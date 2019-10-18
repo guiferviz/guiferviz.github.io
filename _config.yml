@@ -13,7 +13,7 @@ linkedin_username:  guiferviz
 
 # Build settings.
 markdown: kramdown
-safe: true  # If safe is true no plugins will be executed.
+safe: true  # If safe is true no plugins will be executed, like in GitHub pages.
 
 # Do not include the next files in the generated site.
 # Hidden files are excluded by default.

@@ -53,6 +53,8 @@
 			Reveal.initialize({
 				center: true,
 				slideNumber: true,
+				width: 1080,
+				height: 720,
 				dependencies: [
 					{ src: '/lib/revealjs/plugin/markdown/marked.js' },
 					{ src: '/lib/revealjs/plugin/markdown/markdown.js' },
@@ -61,6 +63,7 @@
 					{ src: '/lib/revealjs/plugin/math/math.js', async: true }
 				]
 			});
+			Reveal.configure({ transition: "none" });
 		});
 		</script>
 	</body>
