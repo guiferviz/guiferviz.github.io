@@ -5,8 +5,7 @@ permalink: /about/
 ---
 
 
-Este blog va dirigido a...
-==========================
+# Este blog va dirigido a...
 
 Este blog va dirigido a aquellas personas que disfrutan más monitorizando el entreno de una red neuronal que viendo un partido de su deporte favorito.
 Este blog va dirigido a aquellas personas que acompañan su desayuno dominical con la lectura de un nuevo paper en lugar de con la serie que estén echando en ese momento.
@@ -16,13 +15,22 @@ Va dirigido a aquellas personas que aman los algoritmos y las matemáticas.
 En definitiva, este blog va dirigido a gente como yo.
 
 
-¿Quién soy yo?
-==============
+# ¿Quién soy yo?
 
 Aunque creo que con la sección superior ya te puedes hacer una buena idea de cómo soy, es comprensible que quieras una descripción algo más formal de este blog y de su autor.
 
-Me llamo Guillermo y estudié el grado de Ingeniería Informática en la [Universidad de Alicante](https://www.ua.es/) (España).
-Actualmente me encuentro trabajando para [SolidQ](http://www.solidq.com/), en el departamento de R&D aplicando a proyectos reales muchas de las técnicas descritas en este blog.
+Me llamo Guillermo y estudié el grado de Ingeniería Informática en la
+[Universidad de Alicante](https://www.ua.es/) (España).
+Lo finalizé en 2016 y desde entonces mi vida profesional se resume en 3 años de
+trabajo en [SolidQ](http://www.solidq.com/), una consultora partners de
+Microsoft especializada en el tratamiento de los datos en todas sus variantes.
+Fue allí donde puse en práctica mis conocimiento teóricos de ML y donde aprendí
+a tratar con clientes.
+Después de mis 3 años en SolidQ, a finales del verano del 2019, decidí tomarme
+un descanso para ver mundo y disfrutar del humilde placer del estudio de la
+informática (ML y técnicas algorítmicas).
+Actualmente aún me encuentro disfrutando de este break y viajando sin rumbo
+fijo, viviendo al día e improvisando el futuro cercano.
 
 No soy muy amigo de las redes sociales (con las redes neuronales ya tengo bastantes redes 😜), pero, de vez en cuando me dejo caer por alguna de ellas y... ¡hasta respondo a algunos mensajes!
 Cotilléame los perfiles o sígueme para saber algo más de mi y enterarte de las futuras novedades de este blog.
@@ -32,8 +40,7 @@ Cotilléame los perfiles o sígueme para saber algo más de mi y enterarte de la
 <br />
 
 
-¿Por qué este blog?
-===================
+# ¿Por qué este blog?
 
 La cantidad de experimentos y código que he escrito en mi ordenador es muy grande, pero pocos de ellos han visto la luz.
 Es una pena que todo ese contenido y todos los conocimientos que he ido adquiriendo después de años de estudio de Machine Learning se queden solo a mi disposición.
@@ -51,9 +58,15 @@ Es aquí donde me veo obligado a citar a Reid Hoffman.
 Prometiéndome a mí mismo encontrar un punto de perfeccionismo que me permita empezar a publicar artículos sin perder demasiada calidad, doy a luz a este blog.
 
 
-Dedicatoria
-===========
+# Dedicatoria
 
-Me gustaría agradecer públicamente a todos aquellos que han hecho posible que me haya iniciado en el mundo de la informática.
-Son ya muchos años los que llevo estudiando de forma autodidacta a través de Internet, así que me gustaría aprovechar bien esta dedicatoria agradeciendo a cada una de las personas que han compartido sus conocimientos de forma desinteresada en la red.
-Les agradezco de todo corazón sus aportes, aportes que entre la gran cantidad de datos que hay en Internet son insignificantes, pero, que para mí han marcado la diferencia.
+Me gustaría agradecer públicamente a todos aquellos que han hecho posible que
+me haya iniciado en el mundo de la informática.
+Son ya muchos años los que llevo estudiando de forma autodidacta a través de
+Internet, así que me gustaría aprovechar bien esta dedicatoria agradeciendo a 
+cada una de las personas que han compartido sus conocimientos de forma
+desinteresada en la red.
+Les agradezco de todo corazón sus aportes, aportes que entre la gran cantidad
+de datos que hay en Internet son insignificantes, pero que para mí han marcado
+la diferencia.
+
