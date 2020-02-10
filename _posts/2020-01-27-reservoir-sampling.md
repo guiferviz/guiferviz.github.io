@@ -285,15 +285,33 @@ P_n(x_n) &= \dfrac{1}{n} \\
 P_n(x_i) &= P_{n-1}(x_i) \cdot (1 - P_{i+1}(x_{i+1})) \cdot (1 - P_{i+2}(x_{i+2})) \cdots (1 - P_n(x_n))
 \end{aligned}
 $$
+
 para todo valor de $$i < n$$.
+
+Ahora, partiendo de la expresión general obtengamos la expresión para 3
+elementos.
 
 $$
 \begin{aligned}
-P_3(x_3) = \dfrac{1}{3} \\
-P_3(x_2) = P_2(x_2) \cdot (1 - P_3(x_3)) = \dfrac{1}{2} \cdot \left( 1 - \dfrac{1}{3} \right) = \dfrac{1}{2} \dfrac{2}{3} = \dfrac{2}{6} = \dfrac{1}{3} \\
-P_3(x_1) = P_2(x_1) \cdot (1 - P_2(x_2)) \cdot (1 - P_3(x_3))
+P_3(x_3) &= \dfrac{1}{3} \\
+P_3(x_2) &= P_2(x_2) \cdot (1 - P_3(x_3))
+          = \dfrac{1}{2} \cdot \left( 1 - \dfrac{1}{3} \right)
+          = \dfrac{1}{2} \cdot \dfrac{2}{3}
+          = \dfrac{2}{6}
+          = \dfrac{1}{3} \\
+P_3(x_1) &= P_2(x_1) \cdot (1 - P_2(x_2)) \cdot (1 - P_3(x_3)) = \\
+         &= \dfrac{1}{2} \cdot \left(1 - \dfrac{1}{2}\right) \cdot \left(1 - \dfrac{1}{3}\right)
+          = \dfrac{1}{2} \cdot \dfrac{1}{2} \cdot \dfrac{2}{3}
+          = \dfrac{2}{6}
+          = \dfrac{1}{3}
 \end{aligned}
 $$
+
+Como se observa, $$P_3(x_1) = P_3(x_2) = P_3(x_3) = \dfrac{1}{3}$$, por lo que
+cumple con los requisitos.
+
+
+# Implementación
 
 La implementación es muy sencilla, la puedes encontrar justo debajo.
 
@@ -325,9 +343,9 @@ Efectivamente, con esta nueva función también obtenemos un histograma propio
 de una distribución uniforme.
 **¡Misión cumplida!**
 
-Puedes encontrar un notebook de Python con el código en
-# TODO: añadir enlace del notebook en GitHub.
-[]().
+Puedes encontrar un
+[notebook de Python](https://github.com/guiferviz/guiferviz.github.io/blob/master/assets/notebooks/2020_01_27_reservoir_sampling.md)
+con el código en el repositorio.
 Recuerda que para obtener exactamente los mismos resultados debes de ejecutar
 el notebook de principio a fin, puesto que la semilla aleatoria se configura
 al principio.
