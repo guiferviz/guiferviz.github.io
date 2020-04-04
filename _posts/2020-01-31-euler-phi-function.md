@@ -14,7 +14,7 @@ Esta semana me topé con
 [este problema](https://codeforces.com/contest/1295/problem/D)
 en una competición de CodeForces.
 Yo sabía que no se resolvía por fuerza bruta (sí, soy un hacha 😜), pero la
-pregunta era ¿con qué se resuelve pues?
+pregunta era ¿con qué se resuelve entonces?
 Primero analicemos el problema y luego os presentaré a la función matemática
 aliada que nos ayudará en la batalla contra este enunciado.
 
@@ -22,12 +22,13 @@ El enunciado es el siguiente.
 Tenemos dos números enteros $$a$$ y $$m$$ y el problema nos pide que contemos
 cuantos valores puede tomar el entero $$x$$ tal que $$0 \le x < m$$ y se cumpla
 $$\gcd(a, m) = \gcd(a + x, m)$$.
-$$\gcd$$ representa el máximo común divisor (*greatest common divisor*).
+$$\gcd$$ representa el máximo común divisor (*greatest common divisor* en
+inglés).
 
 
 # Greatest common divisor
 
-Lo primero es tener claro lo que significa el **máximo común divisor**.
+Lo primero es tener claro el significado de **máximo común divisor**.
 El máximo común divisor de dos números cualesquiera es la intersección de los
 factores primos que forman dichos números.
 Esta imagen de Wikipedia debería dejar más clara la definición:
@@ -43,7 +44,7 @@ Máximo común divisor explicado gráficamente.
 La intersección de los factores primos de 48 y 60 es: 2, 2, y 3.
 Por lo tanto, el \(\gcd(48, 60) = 2 \cdot 2 \cdot 3 = 12\).
 Dicho de otra forma, 12 es el número máximo que puede dividir de manera exacta
-a 48 y 60.
+a 48 y a 60.
 (Imagen: Wikipedia)</figcaption>
 </p>
 
@@ -74,7 +75,7 @@ para aclarar esto último que he dicho.
 $$\gcd(48, 60) = 2 \cdot 2 \cdot 3 = 12$$.
 $$y$$ debe de tener 2, 2, y 3 entre sus factores pero no el 5.
 Si no tuviera ni 2, 2 o 3 entre sus factores, o si tuviera el 5,
-$$\gcd(y, 60)$$ sería distinto del 12.
+$$\gcd(y, 60)$$ sería distinto de 12.
 Dicho de otra forma, $$y$$ debe de ser un múltiplo de 12 que no contenga el 5
 entre sus factores.
 
@@ -108,10 +109,6 @@ inglés).
 Esta función devuelve la cantidad de números menores de $$n$$ que son
 primos relativos de $$n$$.
 Justo lo que necesitamos.
-Normalmente se define la función $$\varphi(n)$$ como la cantidad de números
-menores que $$n$$ coprimos de $$n$$.
-Realmente, definirla que sea menor o menor igual da lo mismo puesto que si es
-igual compartirían todos los factores primos.
 
 Puesto que esta función nos da lo que necesitamos, lo que debemos programar es:
 
@@ -124,11 +121,11 @@ Empezando con una definición formal, que no viene siendo más que la forma
 matemática de escribir lo comentado en el párrafo anterior.
 
 $$
-\varphi(m)=|\{n\in \mathbb{N} |n\leq m\land \mathrm {mcd} (m,n)=1\}|
+\varphi(m)=|\{n\in \mathbb{N} |n\leq m\land \gcd(m,n)=1\}|
 $$
 
 $$\varphi(m)$$ es el número de elementos (denotado por $$|\cdot|$$) del
-conjunto ($$\{\cdot\}$$) formado por los números naturales (\mathbb{N}, no
+conjunto ($$\{\cdot\}$$) formado por los números naturales ($$\mathbb{N}$$, no
 incluye el 0) que son menores de $$m$$ y que son primos relativos o coprimos
 de $$m$$ (dicho de otra forma, $$\gcd(m, n) = 1$$).
 
@@ -252,7 +249,8 @@ tema.
 
 De forma más general, para cualquier número
 $$n = p_1^{e_1} p_2^{e_2} \ldots p_t^{e_t}$$, siendo $$p_i^{e^i}$$ el $$i$$
-primo que lo compone $$n$$, se puede escribir la siguiente expresión general:
+primo que lo compone $$n$$ y $${e^i}$$ el número de veces que aparece ese
+primo en la descomposición, se puede escribir la siguiente expresión general:
 $$
 \displaystyle
 \begin{aligned}
@@ -330,7 +328,7 @@ def solve(a, m):
 
 Aquí te dejo una lista de enlaces que me ayudaron a entender de qué iba eso de
 la función $$\varphi$$ de Euler.
-No solo explica qué es, sino que incluye muy buenos ejemplos y demostraciones
+No solo explican qué es, sino que incluyen muy buenos ejemplos y demostraciones
 para entenderla en profundidad.
 
 Altamente recomendados estos dos vídeos de  Michael Penn:
