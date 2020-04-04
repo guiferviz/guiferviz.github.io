@@ -251,6 +251,7 @@ De forma más general, para cualquier número
 $$n = p_1^{e_1} p_2^{e_2} \ldots p_t^{e_t}$$, siendo $$p_i^{e^i}$$ el $$i$$
 primo que lo compone $$n$$ y $${e^i}$$ el número de veces que aparece ese
 primo en la descomposición, se puede escribir la siguiente expresión general:
+
 $$
 \displaystyle
 \begin{aligned}
