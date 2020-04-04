@@ -36,7 +36,7 @@ Esta imagen de Wikipedia debería dejar más clara la definición:
 <center>
 <img alt="máximo común divisor explicado gráficamente"
      width="300"
-     src="/assets/images/2020_01_31_gcd_48_60.jpg" />
+     src="/assets/images/2020_01_31_gcd_48_60.png" />
 </center>
 <figcaption>
 Máximo común divisor explicado gráficamente.
