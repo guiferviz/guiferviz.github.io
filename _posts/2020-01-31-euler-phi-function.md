@@ -13,7 +13,7 @@ comments: true
 Esta semana me topé con
 [este problema](https://codeforces.com/contest/1295/problem/D)
 en una competición de CodeForces.
-Yo sabía que no se resolvía por fuerza bruta (sí, soy un hacha :P), pero la
+Yo sabía que no se resolvía por fuerza bruta (sí, soy un hacha 😜), pero la
 pregunta era ¿con qué se resuelve pues?
 Primero analicemos el problema y luego os presentaré a la función matemática
 aliada que nos ayudará en la batalla contra este enunciado.
