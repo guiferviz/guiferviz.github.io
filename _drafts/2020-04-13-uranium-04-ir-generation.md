@@ -21,8 +21,10 @@ make && ./uc 2> main.ll && lli main.ll || echo $?
 
 and I get... 4!!!
 
+esto me toca la moral
+
 The generated code looks like:
-```llvm
+{% highlight llvm %}
 ; ModuleID = 'uranium_module'
 source_filename = "main.ura"
 
@@ -30,5 +32,17 @@ define i8 @main() {
 main_block:
   ret i8 4
 }
-```
+{% endhighlight %}
 
+<style>
+/* source_filename is not detected by the LLVM Pygments parser.
+ * To avoid the red color and the red box around the word I'm going to
+ * consider that it's a keyword.
+ * IMPORTANT: This works only with the Tango Pygments style.
+ * If you change the style the keyword style may be different. */
+.highlight .err {
+	color: #204a87;
+	font-weight: bold;
+	border: none;
+}
+</style>

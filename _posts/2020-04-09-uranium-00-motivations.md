@@ -49,9 +49,9 @@ A month without leaving home makes anyone insane.
 
 Why spend so much time building a program as complex as a compiler?
 Why to do it when there are hundreds of mature programming languages?
-
-If you are reading this maybe you already have your own reasons, mines are the
-following:
+If you are reading this maybe you already have your own reasons, but if you're
+reading this just out of curiosity and need someone to convince you to do it...
+here are my main reasons:
 
 * It's **fun**.
 * **I don't like black boxes** and a compiler is a big black box that I've been
@@ -60,9 +60,9 @@ following:
   is going to be a <span style="color: gray">gray box</span>.
   It's not going to be a white/transparent box because making your own compiler
   from scratch that generates optimized code is a really difficult task.
-  It's not impossible, but really improbable.
   I don't thing I'm going to create a better compiler in a month
   than the one designed by a group of hundreds of experts over the years.
+  It's not impossible, but it's really improbable.
   So I will try to find a good balance between writing all the code by my own
   and use some other tools.
   Even using tools created by others I will learn much more than I knew about
@@ -72,7 +72,7 @@ following:
   optimized by the compiler.
 * It's so much **fun**.
 * Not a lot of people know how to build a compiler.
-  It's a **difficult task**, so if you get something you will feel like a boss.
+  It's a **difficult task**, so if I get something I will feel like a boss 😎.
 
 Apart from all those reasons I will add a new one here that I didn't comment
 before: I ❤️ programming, so I'm sure I'll have a great time.
@@ -84,31 +84,110 @@ A compiler is a translator from one language to another.
 It takes a file written in $$X$$ language and returns a different file written
 in the $$Y$$ language.
 
-<div style="text-align: center">
+<figure id="figure01" style="text-align: center">
 <img src="/assets/images/2020_04_09_compiler_in_out.svg" width="400" />
 <figcaption>
-In this image I represent the compiler as a big black box, and it's not a
-coincidence, they really are pieces of software from which we usually ignore
-almost everything.
+Figure 1: In this image I represent the compiler as a big black box,
+and it's not a coincidence,
+they really are pieces of software from which we usually ignore almost
+everything.
 </figcaption>
-</div>
+</figure>
 
-Usually, compilers translate from one high level language to machine code,
-code thar our machines can understard and execute
+
+## More about languages
+
+Usually, compilers translate from one high level language to machine code.
+**High level languages** are very expressive programming languages, similar to
+any human language like English.
+For example, even if you don't know *Python* you can imagine what this
+code does:
+{% highlight python %}
+for i in my_array:
+    print(i)
+{% endhighlight %}
+It's pure English!
+It iterates an array and shows each element on the screen.
+
+**Low level languages** are programming languages that are closer to machine
+language than to human language.
+Look at the next example:
+
+{% highlight nasm %}
+ldr r0,iAdrszMessResult
+bl affichageMess            @ display message
+add r4,#1                   @ increment counter
+mov r0,r4
+mov r1,#6                   @ division conuter by 6
+bl division
+cmp r3,#0                   @ remainder = zero ?
+bne 1b                      @ no ->begin loop one
+{% endhighlight %}
+<style>
+/* Ignoring Pygments parser errors.
+ * To avoid the red color and the red box around the word I'm going to
+ * consider that it's a keyword.
+ * IMPORTANT: This works well only with the Tango Pygments style.
+ * If you change the style the keyword style may be different. */
+.highlight .err {
+	color: inherit;
+	font-weight: normal;
+	border: none;
+}
+</style>
+
+This is a fragment of *ARM Assembly* taken from *Rosetta Code*, an amazing
+web page with tons of algorithms implemented in hundreds of languages
+(hopefully it's going to contain Uranium code in the near future :).
+What is this code doing?
+The comments help a little bit, but anyway, it's much more difficult to
+understand than a high level language.
+You can see the [complete code here][rosettaArm].
+
+**Machine code** is the most low level you can go.
+It is the code that our machines can understand and execute
 (e.i. zeros and ones arranged in the correct way).
+This code depends on the CPU.
+Each CPU is built differently and accepts certain types of instructions.
+Luckily, not all CPUs are completely different, but we can group them into
+families that share many common characteristics and instructions.
+The most famous families are *x86*, *x86_64* and *AMD*.
+Since I've given an example of each of the above types of programming languages
+exposed, machine code won't be no less, here's an example:
 
-If we open the compiler block box the picture is like this:
+{% highlight nasm %}
+010101110101010001000110001111110011111100111111...
+{% endhighlight %}
 
-<div style="text-align: center">
+What does all that mean? 🤔
+It is obvious that understanding this is much more difficult than any assembly
+language.
+
+
+## Phases of the compiler
+
+As I said before, I hate black boxes.
+So I'm going to update the [Figure 1](#figure01) by replacing the compiler
+box with other elements.
+If we open the compiler black box the picture is like this:
+
+<figure id="figure02" style="text-align: center">
 <img src="/assets/images/2020_04_09_compiler_phases.svg" />
 <figcaption>
-Now the big back box is splitted in small back boxes.
+Figure 2: Now the big back box is split in smaller back boxes.
+<br />
 We can still break down some of these boxes, but I think it's enough for the
 moment.
 </figcaption>
-</div>
+</figure>
 
-We observe that a compiler is written in a serie of separate steps.
+Hmmm... Now the number of black boxes is bigger!
+Ok, relax.
+If we keep opening the black boxes they will eventually stop being black and
+we will be able to understand all the contents.
+Until then, just relax.
+
+We observe that a compiler is written in a series of sequential steps.
 This is a good software engineering design, modular pieces of software that
 are by far easier to approach than a big unique module.
 
@@ -116,7 +195,7 @@ Some programming languages like C++ has a **preprocessor** that modifies the
 input file using macros before the file is feeded into the compiler.
 Apart from this translation, we also need some other tools to **link** the
 compiled code with other previously compiled code or system functions.
-So, processing progamming languages can be more tricky than I'm presenting
+So, processing programming languages can be trickier than I'm presenting
 here, but so far it's is more than enough for us.
 We can start our compiler and learn the rest of the things on the way.
 
@@ -206,4 +285,5 @@ See you in the [next post][nextPost]!!
 
 [llvmIntro]: https://www.aosabook.org/en/llvm.html
 [nextPost]: /2020/04/10/uranium-01-compiling-llvm.html
+[rosettaArm]: https://rosettacode.org/wiki/Loops/Do-while#ARM_Assembly
 
