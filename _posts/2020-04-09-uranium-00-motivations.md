@@ -3,7 +3,10 @@ layout: post
 
 title: Uranium - Writing my own programming language with C++ and LLVM
 excerpt: >
-    Why to write my own programming language?
+    Here's Uranium, the ridiculously serious programming language I want to
+    design.
+    Designing a programming language with its respective compiler is not an
+    easy project, so why to write my own language?
     Introduction, motivations, definitions, selected technologies and work plan
     of an ambitious personal project.
 date: 2020-04-09
@@ -16,7 +19,8 @@ comments: true
 Let's start with an obvious question...
 What is the **very first thing** to do when you want to create something?
 Choose a name and a logo, of course!
-Let me introduce Uranium, my not-yet-designed programming language.
+Let me introduce <span style="color: green;">**Uranium**</span>, my
+not-yet-designed programming language.
 
 <p>
 <center>
@@ -25,12 +29,15 @@ Let me introduce Uranium, my not-yet-designed programming language.
 <figcaption>A bunch of radioactive zeros and ones that will soon destroy you.</figcaption>
 </p>
 
-This is **not a tutorial**, this is a dairy of my process building Uranium.
-If you follow all the series you will achive amazing things, but you will be
-expose to a lot of radiaction that may kill you (or at least get your unborn
-child born with three legs).
+This is <span style="color: red">**not a tutorial**</span>, this is a dairy of
+my process building Uranium.
+That means you'll accompany me while I learn, so I may say something that is
+not quite right.
+Anyways, if you follow all the series you will achive amazing things, but you
+will be expose to a lot of radiaction that may kill you (or at least get your
+unborn child born with three legs).
 
-As a disclaimer for any nonsense I might say, I will say that this article was
+As a disclaimer for any nonsense I might say, I will add that this article was
 written during the coronavirus quarantine of 2020.
 A month without leaving home makes anyone insane.
 
@@ -44,7 +51,7 @@ following:
 * **I don't like black boxes** and a compiler is a big black box that I've been
   using for a long time now.
   Building my own compiler is going to make that box less black, let's say that
-  is going to be a gray box.
+  is going to be a <span style="color: gray">gray box</span>.
   It's not going to be a white/transparent box because making your own compiler
   from scratch that generates optimized code is a really difficult task.
   It's not impossible, but really improbable.
@@ -179,7 +186,7 @@ We will talk more about this in the next post.
 
 Setting up the development environment is the next step to take.
 Download, compile and install LLVM.
-See you in the next post.
+See you in the [next post][nextPost]!!
 
 
 # References
@@ -192,4 +199,5 @@ See you in the next post.
 
 
 [llvmIntro]: https://www.aosabook.org/en/llvm.html
+[nextPost]: /2020/04/10/uranium-01-compiling-llvm.html
 

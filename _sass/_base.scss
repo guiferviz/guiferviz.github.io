@@ -68,6 +68,7 @@ figure > img {
 figcaption {
     font-size: $small-font-size;
     margin-bottom: 1em;
+    margin-top: 1em;
 }
 
 
@@ -147,7 +148,7 @@ code {
     padding: 1px 5px;
 }
 
-pre {
+.highlight pre {
     padding: 8px 12px;
     overflow-x: auto;
 

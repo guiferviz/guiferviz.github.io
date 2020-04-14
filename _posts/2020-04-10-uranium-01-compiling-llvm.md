@@ -3,29 +3,35 @@ layout: post
 
 title: Uranium 01 - Compiling LLVM
 excerpt: >
-    Instructions for compiling LLVM.
-date: 2020-04-09
+    Instructions for compiling and installing LLVM from git.
+date: 2020-04-10
 tags: [Compilers, Uranium, LLVM]
 
 mathjax: false
 comments: true
 ---
 
+In the last post I introduced the Uranium project, the motivations around it
+and some basic explanations around compilers.
+So far so good, no radiation in the air.
+
+Before using LLVM you need to install it.
 Compiling LLVM was **easier than I expected**.
 The most difficult part of this post was waiting until the end of the
 compilation.
-You only need patience.
+You only need patience (and *CMake* and a modern *C++ compiler* :).
 
 The documentation specifies the requirements and the
 [build and installation process][llvmInstall]
 quite well.
-Using [*CMake* for building][llvmCMake] the libraries is the easier way.
+Using [CMake for building][llvmCMake] the libraries is the easier way.
 I know it is well described there, but anyways, I'm going to post here the
 process with the exact commands I ran.
 
 If you don't want to build your own binaries, you can use a **pre-build**
 distribution if your platform is among those available.
 I didn't try it, but I know it's an option.
+I'm trying to build a compiler, so I prefer to compile it by myself :)
 
 Clone *git* or download a package with an specific version.
 For example, for installing the version 10.0.0 using git your should execute:
@@ -80,7 +86,7 @@ cmake \
 ```
 
 Compile the code just with a simple `make` command.
-The compilation process for LLVM + clang takes around 3 hours in my computer.
+The compilation process for LLVM + clang takes around 4 hours in my computer.
 ```cmd
 make
 ```
@@ -98,16 +104,23 @@ I tried to build the documentation with *Sphynx* but I was getting an
 "Warning treated as error" that didn't allow me to finish the docs generation.
 *Doxygen* is working well for me:
 ```cmd
+cmake \
+  -DLLVM_ENABLE_DOXYGEN=On \
+  -G "Unix Makefiles" ../llvm
 make doxygen-llvm
+sudo make install
 ```
 
 Your documentation is ready in `build/docs/doxygen/html/index.html`.
+If you install it, you can also find it in your install directory,
+`<install-dir>/docs/html/html/index.html`.
+For example, in my case it is in `/usr/local/llvm10/docs/html/html/index.html`.
 Keep in mind that this documentation is only for the LLVM libraries and does
-not include `clang`.
+not include `clang` documentation or any other extra tutorials.
 If you do not want to generate the documentation you can use the online
 version.
 Just be sure that you are using the documentation of the installed version of
-LLVM.
+LLVM to avoid confusions.
 Search for the appropriate version of your documentation [here][llvmReleases].
 For example, for the [version 10.0.0][llvm10docs] that I installed I need to
 use the given link.
@@ -129,7 +142,7 @@ Restart your *Shell* and execute `clang --version` and later `lli --version`.
 The system should find the existing executable files and show the next output
 for `clang --version`:
 ```cmd
-clang version 11.0.0 (https://github.com/llvm/llvm-project.git 53b7abdd238c89346e5516928af675e5ca973124)
+clang version 10.0.0 (https://github.com/llvm/llvm-project.git d32170dbd5b0d54436537b6b75beaf44324e0c28)
 Target: x86_64-unknown-linux-gnu
 Thread model: posix
 InstalledDir: /usr/local/llvm10/bin
@@ -137,7 +150,7 @@ InstalledDir: /usr/local/llvm10/bin
 and for `lli --version`:
 ```cmd
 LLVM (http://llvm.org/):
-  LLVM version 11.0.0git
+  LLVM version 10.0.0
   DEBUG build with assertions.
   Default target: x86_64-unknown-linux-gnu
   Host CPU: skylake
@@ -150,7 +163,7 @@ After compiling, installing and checking that the binaries are in the correct
 path, we are going to **compile our first program using the LLVM libraries**.
 For doing that we need a proper way to compile our code.
 As LLVM, we are going to use CMake for generating our `Makefile`s.
-See you in the next post!!
+See you in the [next post][nextPost]!!
 
 
 # References
@@ -169,4 +182,6 @@ Here are all the links used in this page:
 [llvmCMake]: https://llvm.org/docs/CMake.html
 [llvm10docs]: https://releases.llvm.org/10.0.0/docs/index.html
 [llvmReleases]: https://releases.llvm.org/
+[nextPost]: /2020/04/11/uranium-02-ir-generation.html
+[prevPost]: /2020/04/09/uranium-00-motivations.html
 
