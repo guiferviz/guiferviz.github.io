@@ -33,6 +33,9 @@ This is <span style="color: red">**not a tutorial**</span>, this is a dairy of
 my process building Uranium.
 That means you'll accompany me while I learn, so I may say something that is
 not quite right.
+It also means that I don't know how far this project will go.
+I'll see as I go.
+
 Anyways, if you follow all the series you will achive amazing things, but you
 will be expose to a lot of radiaction that may kill you (or at least get your
 unborn child born with three legs).
@@ -43,6 +46,9 @@ A month without leaving home makes anyone insane.
 
 
 # Why to build a compiler?
+
+Why spend so much time building a program as complex as a compiler?
+Why to do it when there are hundreds of mature programming languages?
 
 If you are reading this maybe you already have your own reasons, mines are the
 following:
