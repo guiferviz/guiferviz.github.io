@@ -1,11 +1,11 @@
 ---
 layout: post
 
-title: Uranium - Writing my own programming language with C++ and LLVM
+title: Uranium 00 - Creating a programming language with C++ and LLVM
 excerpt: >
-    Here's Uranium, the ridiculously serious programming language I want to
-    design.
-    Designing a programming language with its respective compiler is not an
+    Let me introduce you to Uranium, the ridiculously serious programming
+    language I want to design.
+    Creating a programming language with its respective compiler is not an
     easy project, so why to write my own language?
     Introduction, motivations, definitions, selected technologies and work plan
     of an ambitious personal project.
@@ -123,18 +123,6 @@ bl division
 cmp r3,#0                   @ remainder = zero ?
 bne 1b                      @ no ->begin loop one
 {% endhighlight %}
-<style>
-/* Ignoring Pygments parser errors.
- * To avoid the red color and the red box around the word I'm going to
- * consider that it's a keyword.
- * IMPORTANT: This works well only with the Tango Pygments style.
- * If you change the style the keyword style may be different. */
-.highlight .err {
-	color: inherit;
-	font-weight: normal;
-	border: none;
-}
-</style>
 
 This is a fragment of *ARM Assembly* taken from *Rosetta Code*, an amazing
 web page with tons of algorithms implemented in hundreds of languages
@@ -191,8 +179,11 @@ We observe that a compiler is written in a series of sequential steps.
 This is a good software engineering design, modular pieces of software that
 are by far easier to approach than a big unique module.
 
+In addition to the phases shown in [Figure 2](#figure02), other elements
+besides the compiler are involved in the process of processing a programming
+language.
 Some programming languages like C++ has a **preprocessor** that modifies the
-input file using macros before the file is feeded into the compiler.
+input file using macros before the file is fed into the compiler.
 Apart from this translation, we also need some other tools to **link** the
 compiled code with other previously compiled code or system functions.
 So, processing programming languages can be trickier than I'm presenting
