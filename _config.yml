@@ -5,6 +5,7 @@ description: > # this means to ignore newlines until "baseurl:"
   No trates a las redes neuronales como si fueran personas... no les gusta.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://guiferviz.github.io"
+permalink: /:categories/:title/
 
 # Social networks.
 twitter_username: guiferviz
@@ -16,6 +17,13 @@ markdown: kramdown
 
 plugins:
   - jekyll-sitemap  # Generate sitemap for search engines.
+
+defaults:
+  -
+    scope:
+        path: "lib/**/*"
+    values:
+        sitemap: false
 
 # Do not include the next files in the generated site.
 # Hidden files are excluded by default.
