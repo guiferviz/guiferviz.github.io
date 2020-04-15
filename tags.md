@@ -57,7 +57,8 @@ The purpose of this snippet is to list all your posts posted with a certain tag.
 {% for tag in tags %}
     <h2 id="{{ tag | slugify }}">{{ tag }}</h2>
     <ul>
-    {% for post in site.posts %}
+    {% assign sorted_posts = site.posts | sort: "url" %}
+    {% for post in sorted_posts %}
         {% if post.tags contains tag %}
             <li>
                 {% if site.difficulties %}{{ post.difficulty_icon }} {% endif %}<a href="{{ post.url }}">{{ post.title }}</a> {% for tag in post.tags %}<a class="tag" href="/tags/#{{ tag | slugify }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}
