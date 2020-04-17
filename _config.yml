@@ -21,7 +21,7 @@ plugins:
 defaults:
   -
     scope:
-        path: "lib/**/*"
+        path: "lib/**/*"  # Do not add files under lib to the sitemap.
     values:
         sitemap: false
 
@@ -31,3 +31,4 @@ exclude:
 - README.md
 - run_server.sh
 - run_jupyter.sh
+

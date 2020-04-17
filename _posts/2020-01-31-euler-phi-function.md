@@ -2,8 +2,11 @@
 layout: post
 
 title: Euler Phi/Totient function
-excerpt: "Aprendiendo sobre la función Phi de Euler motivado por la resolución de un problema de CodeForces."
+excerpt: >
+    Aprendiendo sobre la función Phi de Euler motivado por la resolución de un
+    problema de CodeForces.
 date: 2020-01-31
+slug: euler-phi-totient-function
 tags: [Math, CodeForces, Euler]
 
 mathjax: true

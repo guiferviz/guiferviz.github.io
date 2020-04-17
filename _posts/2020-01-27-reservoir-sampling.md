@@ -9,6 +9,7 @@ excerpt: >
     constante.
     Aquí te lo explico con todo lujo de detalles.
 date: 2020-01-27
+slug: reservoir-sampling
 tags: [Algorithms, Random]
 
 mathjax: true

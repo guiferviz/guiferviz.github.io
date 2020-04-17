@@ -10,8 +10,9 @@ excerpt: >
     Introduction, motivations, definitions, selected technologies and work plan
     of an ambitious personal project.
 date: 2020-04-09
+categories: uranium
+slug: 00-introduction
 tags: [Compilers, Uranium, LLVM]
-permalink: /uranium/00-introduction
 
 mathjax: true
 comments: true
