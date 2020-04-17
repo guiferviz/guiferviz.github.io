@@ -2,7 +2,12 @@
 layout: post
 
 title: Reservoir sampling
-excerpt: "¿Cómo obtener aleatoriamente un elemento de una lista con un número indeterminado de elementos?"
+excerpt: >
+    ¿Cómo obtener aleatoriamente un elemento de un streaming (del que no
+    sabemos cuándo va a terminar) sin tener que almacenar todos los elementos?
+    Reservoir sampling lo consigue en complejidad temporal lineal y espacial
+    constante.
+    Aquí te lo explico con todo lujo de detalles.
 date: 2020-01-27
 tags: [Algorithms, Random]
 
@@ -344,11 +349,14 @@ de una distribución uniforme.
 **¡Misión cumplida!**
 
 Puedes encontrar un
-[notebook de Python](https://github.com/guiferviz/guiferviz.github.io/blob/master/assets/notebooks/2020_01_27_reservoir_sampling.md)
+[notebook de Python][notebook]
 con el código en el repositorio.
 Recuerda que para obtener exactamente los mismos resultados debes de ejecutar
 el notebook de principio a fin, puesto que la semilla aleatoria se configura
 al principio.
 Si ejecutas una celda dos veces hará que el resultado de las siguientes no
 sea exactamente el mismo que el mío.
+
+
+[notebook]: https://github.com/guiferviz/guiferviz.github.io/blob/master/assets/notebooks/2020_01_27_reservoir_sampling.md
 
