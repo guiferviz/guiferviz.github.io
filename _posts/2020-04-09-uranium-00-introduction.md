@@ -254,19 +254,53 @@ A compiler is composed by a frontend module, an optimizer and a backend.
 </figcaption>
 </figure>
 
+The **compiler backend** generates machine code for an specific CPU
+architecture.
 The **compiler frontend** reads the input code and translates it to an
 **intermediate representation (IR)**.
-That IR is nothing else than a language of a machine that does not exists.
-Why to translate to that language them?
+That IR is nothing else than another programming language.
+This different programming language is optimized and compiled to machine code.
+An obvious question now arises: *Why to use this IR?*.
 
-Imagine IR as a language that finds a perfect balance between high and low. It's as general a language as possible, able to adapt quite well to all programming languages.
+Imagine that you translate your own language to C.
+Now you can use any existing C compiler to generate your machine code.
+Using C as an intermediate language you will reuse all the complex
+optimizations techniques and the machine code generation of a well now
+compiler, making your language as fast as C in an easy way.
 
+In practice, as we will see later, the language used for the IR is a language
+created specifically for that purpose.
 
+Using the concept of IR we "only" need to build a frontend that translate from
+our own language to the IR and we will be able to compile to machine code from
+which we have a backend.
+In the same way, if we are designing a CPU, we can write a backend for that
+CPU and we will have a compiler for all the languages from which we have
+frontends.
 
-<figure id="figure04" style="text-align: center">
+<figure id="figure05" style="text-align: center">
+<img src="/assets/images/2020_04_09_frontend_backend_multi.svg"
+     width="500"
+     alt="Multiple frontends, one optimizer block and multiple backends." />
+<figcaption>
+Figure 5: Using an IR we can reuse the different components of the compiler.
+<br />
+Writing a compiler is not longer a really hard task, let's reuse software!
+</figcaption>
+</figure>
+
+The benefits of this approach is quite obvious.
+We do not need to write an entire compiler from scratch for every pair of
+language and CPU architecture.
+In the real world there is not only one IR, but each project ends up using its
+own intermediate language.
+
+Let's continue splitting the frontend and the backend of a compiler.
+
+<figure id="figure06" style="text-align: center">
 <img src="/assets/images/2020_04_09_compiler_phases.svg" />
 <figcaption>
-Figure 4: Now the big back box is split in smaller back boxes.
+Figure 6: Main phases of a compiler.
 <br />
 We can still break down some of these boxes, but I think it's enough for the
 moment.
@@ -291,7 +325,7 @@ More about this tool in the next section.
 As I progress with the construction of the compiler, I will go deeper
 into each of the phases and learn a lot more about them.
 To begin with, I will briefly describe each of the phases shown in
-[Figure 2][figure02] using an example.
+[Figure 6][figure06] using an example.
 Imagine we want to compile the expression: `1 + 2 * 3`.
 It is very simple mathmatical expression that evaluates to `7`.
 
@@ -346,12 +380,27 @@ Example: if you are trying to multiply a number by a string and this operation
 is not defined in your language, then you will get a semantic error.
 
 * **Intermediate Code Generator**.
+Translate the AST to IR.
 We will see much more about this in the next posts.
+Bellow these lines, you will find an IR made up by me only for this example.
+
+{% highlight nasm %}
+i32 a = #1
+i32 b = #2
+i32 c = #3
+i32 d = mul b, c
+i32 e = sum a, d
+return e
+{% endhighlight %}
 
 * **Optimizer**.
 How can we optimize the given expression?
 Very easy, we can just return 7 because we are using only constants, values
 that are not going to change from execution to execution.
+
+{% highlight nasm %}
+return 7
+{% endhighlight %}
 
 * **Machine Code Generator**.
 The number 7 in binary could be the output of this expression.
@@ -434,10 +483,10 @@ Better now?
 The last phases are too difficult to implement and they required a lot of
 knowledge, so using LLVM is going to save us lot of time.
 The optimizer is the hardest part, a lot of dark knowledge is involved there.
-Also, the machine code generator requirese a lot of low level knowledge of the
-CPU arquitecture.
-LLVM add support for the commonst CPU and the facility to add our own backends
-to generate code for or own CPUs.
+Also, the machine code generator requires a lot of low level knowledge of the
+CPU architecture.
+LLVM adds support for the most common CPUs and the facility to add a custom
+backend to generate code for our own CPUs.
 
 
 ## 3.3. C++
