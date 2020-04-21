@@ -23,6 +23,11 @@ layout: default
     <div class="post-content" itemprop="articleBody">
         {{ content }}
     </div>
+    <script>
+        var toc_html = `
+            {% include generate_toc.html html=content %}
+        `;
+    </script>
 
     {% include social-share.html %}
 
