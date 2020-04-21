@@ -4,7 +4,16 @@ title: Uranium series
 permalink: /uranium/
 ---
 
+<figure id="uraniumLogo" style="text-align: center">
+<img src="/assets/images/2020_04_09_uranium_logo.svg"
+     width="400"
+     alt="Uranium logo." />
+<figcaption>
+A bunch of radioactive zeros and ones that will soon destroy you.
+</figcaption>
+</figure>
 <style>
+
 ol {
     list-style-type: decimal-leading-zero;
 }
