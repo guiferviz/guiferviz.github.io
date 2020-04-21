@@ -12,7 +12,7 @@ excerpt: >
 date: 2020-04-09
 categories: uranium
 slug: 00-introduction
-tags: [Compilers, Uranium, LLVM]
+tags: [Compilers, Uranium, LLVM, Flex, Bison]
 
 mathjax: true
 comments: true
@@ -33,8 +33,8 @@ A bunch of radioactive zeros and ones that will soon destroy you.
 </figcaption>
 </figure>
 
-And this is how I would like Uranium to look in the future.
-It is a mixture of C++ with Python, nothing too innovative in the syntax.
+And this is how I'd like Uranium to look like in the future.
+It is a mixture of *C++* with *Python*, nothing too innovative in the syntax.
 
 {% highlight cpp %}
 int cube(x):
@@ -58,8 +58,8 @@ I'll see as I go.
 My goal is to at least build a compiler capable of processing the previous
 code.
 
-Anyways, if you follow all the series you will achive amazing things, but you
-will be expose to a lot of radiaction that may kill you (or at least get your
+Anyways, if you follow all the series you will achieve amazing things, but you
+will be expose to a lot of radiation that may kill you (or at least get your
 unborn child born with three legs).
 
 As a disclaimer for any nonsense I might say, I will add that this article was
@@ -160,7 +160,7 @@ No machine code is generated.
 
 Of course, not everything has to be black or white.
 Among others we find compilers that compile code for virtual machines that
-later interpret the code (*Java* and its *Java Virtual Machine*)
+later interpret the code (like *Java* and its *Java Virtual Machine*)
 and interpreters that do generate compiled code (*Just In-Time compilers*).
 
 
@@ -244,23 +244,31 @@ box with other elements.
 If we open the compiler black box the picture is like this:
 
 <figure id="figure04" style="text-align: center">
-<img src="../assets/images/2020_04_09_frontend_backend.svg"
-     width="500"
-     alt="A compiler is composed by a frontend, an optimizer and a backend." />
+<img src="/assets/images/2020_04_09_frontend_backend.svg"
+     width="600"
+     alt="A compiler is composed by a front end, an optimizer and a back end." />
 <figcaption>
 Figure 4: Now the big back box is split in smaller back boxes.
 <br />
-A compiler is composed by a frontend module, an optimizer and a backend.
+A compiler is composed by a front end module, an optimizer and a back end.
 </figcaption>
 </figure>
 
-The **compiler backend** generates machine code for an specific CPU
-architecture.
-The **compiler frontend** reads the input code and translates it to an
+We observe that a compiler is written in a series of sequential steps.
+This is a good software engineering design, modular pieces of software that
+are by far easier to approach than a big unique module.
+Some old compilers, such us **GCC**, are know to be very difficult to approach
+because their design is not very modular.
+Hopefully the situation is different in **LLVM**, the tool I will rely on to
+build my compiler.
+More about this tool in the next section.
+
+The **compiler front end** reads the input code and translates it to an
 **intermediate representation (IR)**.
 That IR is nothing else than another programming language.
-This different programming language is optimized and compiled to machine code.
-An obvious question now arises: *Why to use this IR?*.
+This different programming language is optimized by the **optimizer** and
+translated to an specific machine code by the **compiler back end**.
+An obvious question now arises: *Why to use an IR?*
 
 Imagine that you translate your own language to C.
 Now you can use any existing C compiler to generate your machine code.
@@ -268,20 +276,21 @@ Using C as an intermediate language you will reuse all the complex
 optimizations techniques and the machine code generation of a well now
 compiler, making your language as fast as C in an easy way.
 
-In practice, as we will see later, the language used for the IR is a language
-created specifically for that purpose.
+In practice, C is not used for that purpose.
+As we will see later, the language used as IR is a language created
+specifically for that purpose.
 
-Using the concept of IR we "only" need to build a frontend that translate from
-our own language to the IR and we will be able to compile to machine code from
-which we have a backend.
-In the same way, if we are designing a CPU, we can write a backend for that
+Using the concept of IR we "only" need to build a front end that translate from
+our own language to the IR and we will be able to compile to any machine
+architecture from which we have a back end.
+In the same way, if we are designing a CPU, we can write a back end for that
 CPU and we will have a compiler for all the languages from which we have
-frontends.
+front ends.
 
 <figure id="figure05" style="text-align: center">
 <img src="/assets/images/2020_04_09_frontend_backend_multi.svg"
-     width="500"
-     alt="Multiple frontends, one optimizer block and multiple backends." />
+     width="700"
+     alt="Multiple front ends, one optimizer block and multiple back ends." />
 <figcaption>
 Figure 5: Using an IR we can reuse the different components of the compiler.
 <br />
@@ -294,8 +303,9 @@ We do not need to write an entire compiler from scratch for every pair of
 language and CPU architecture.
 In the real world there is not only one IR, but each project ends up using its
 own intermediate language.
+Anyway, using an IR has its advantages.
 
-Let's continue splitting the frontend and the backend of a compiler.
+Let's continue splitting the front end and the back end of a compiler.
 
 <figure id="figure06" style="text-align: center">
 <img src="/assets/images/2020_04_09_compiler_phases.svg" />
@@ -308,28 +318,19 @@ moment.
 </figure>
 
 *Hmmm... Now the number of black boxes is bigger!*
-Ok, relax.
+OK, relax.
 If we keep opening the black boxes they will eventually stop being black and
 we will be able to understand all the contents.
 Until then, just relax.
 
-We observe that a compiler is written in a series of sequential steps.
-This is a good software engineering design, modular pieces of software that
-are by far easier to approach than a big unique module.
-Some old compilers, such us **GCC**, are know to be very difficult to approach
-because their design is not very modular.
-Hopefully the situation is different in **LLVM**, the tool I will rely on to
-build my compiler.
-More about this tool in the next section.
-
 As I progress with the construction of the compiler, I will go deeper
 into each of the phases and learn a lot more about them.
 To begin with, I will briefly describe each of the phases shown in
-[Figure 6][figure06] using an example.
+[Figure 6](#figure06) using an example.
 Imagine we want to compile the expression: `1 + 2 * 3`.
-It is very simple mathmatical expression that evaluates to `7`.
+It is very simple mathematical expression that evaluates to `7`.
 
-* **Lexical Analyzer**.
+* **Lexical Analyzer** or **scanner**.
 The first step is to break the input in smaller units called tokens.
 The given expression has 3 numbers and 2 operations.
 In this phase, all spaces and comments are removed so that subsequent phases
@@ -340,19 +341,19 @@ Any not allowed symbols are detected and reported.
 Although syntactically incorrect, entries such as `1 + +2 3*` are lexically
 correct and are not reported by the lexical analyzer.
 
-<figure id="figure05" style="text-align: center">
+<figure id="figure07" style="text-align: center">
 <img src="/assets/images/2020_04_09_tokens.svg"
      width="600"
      alt="Tokens generated from the expression '1 + 2 * 3'." />
 <figcaption>
-Figure 5: The lexical analyzer splits the input text into unbreakable elements.
+Figure 7: The lexical analyzer splits the input text into unbreakable elements.
 <br />
 This figure shows the tokens generated from the expression in the text
 <pre style="display: inline">"1 + 2 * 3"</pre>.
 </figcaption>
 </figure>
 
-* **Syntax Analyzer**.
+* **Syntax Analyzer** or **parser**.
 Using a formal definition of a language, that is, a way of describing the set
 of code that you can write with your language, this analyzer generates a
 tree that represents the given expression and the evaluation order of the
@@ -360,12 +361,12 @@ operations.
 The name of that tree is the Abstract Syntax Tree or AST.
 The `1 + +2 3*` expression showed before will give an error during this phase.
 
-<figure id="figure06" style="text-align: center">
+<figure id="figure08" style="text-align: center">
 <img src="/assets/images/2020_04_09_ast.svg"
      width="300"
      alt="Abstract Syntax Tree (AST) of the expression 1 + 2 * 3" />
 <figcaption>
-Figure 6: Abstract Syntax Tree (AST) of the expression 1 + 2 * 3.
+Figure 8: Abstract Syntax Tree (AST) of the expression 1 + 2 * 3.
 Note that the precedence of the operations are implicit in the tree:
 to evaluate the addition, the product must be computed first.
 </figcaption>
@@ -375,7 +376,7 @@ to evaluate the addition, the product must be computed first.
 This analyzer deals with the data types and ensures that a variable is declared
 before use.
 Sometimes, the semantic analyzer and the lexical analyzer are mixed in the
-same piece of code.
+same module.
 Example: if you are trying to multiply a number by a string and this operation
 is not defined in your language, then you will get a semantic error.
 
@@ -402,7 +403,7 @@ that are not going to change from execution to execution.
 return 7
 {% endhighlight %}
 
-* **Machine Code Generator**.
+* **Machine Code Generator** or back end.
 The number 7 in binary could be the output of this expression.
 Sometimes, once the machine code is generated, a second optimization phase can
 be run.
@@ -412,8 +413,8 @@ This allows machine-specific optimizations to be applied.
 00000111
 {% endhighlight %}
 
-The comunication between phases is made using some kind of representation.
-The **source file** is the input of the lexican analyzer and its output is a
+The communication between phases is made using some kind of representation.
+The **source file** is the input of the lexical analyzer and its output is a
 **stream of tokens**.
 The syntax analyzer and the semantic analyzer are sometimes mixed in the
 same module.
@@ -425,7 +426,7 @@ Taking that code, the optimizer outputs an optimized version of that
 intermediate representation.
 The machine code generator outputs an object file with the **compiled code**.
 
-In addition to the phases shown in [Figure 2](#figure02), other elements
+In addition to the phases shown in [Figure 6](#figure06), other elements
 besides the compiler are involved in the task of processing a programming
 language.
 Some programming languages like C++ has a **preprocessor** that modifies the
@@ -445,48 +446,67 @@ myself and using external libraries.
 The condition I impose on myself is not to use any library if I can't implement
 something basic equivalent by myself.
 For example, if I know how to create a simple lexical analyzer that can
-process numbers, keywords and common operators, then I can start using Flex
-to program a more complex and efficient.
+process numbers, keywords and common operators, then I can start using **Flex**
+to program a more complex and efficient one.
 
 
 ## 3.1. Flex and Bison
+
+Flex is a tool used to generate efficient scanners or lexical analyzers.
+Flex tokenize an input text stream and returns a stream of tokens that are
+consumed by the parser.
+
+Bison helps us to generate a parser that checks the syntax of a program and
+builds an AST.
+Once you have an AST, it's pretty straightforward to generate the IR code.
+
+<figure id="figure09" style="text-align: center">
+<img src="/assets/images/2020_04_09_compiler_phases_flex_bison.svg"
+     alt="Flex and Bison help us creating the scanner and the parser." />
+<figcaption>
+Figure 9: Modules that we can develop with the help of Flex and Bison.
+</figcaption>
+</figure>
+
+Both programs are free and open source.
 
 
 ## 3.2. LLVM
 
 LLVM can help us in the next black boxes of our previous graph.
 
-<div style="text-align: center">
-<img src="/assets/images/2020_04_09_compiler_phases_llvm.svg" />
+<figure id="figure10" style="text-align: center">
+<img src="/assets/images/2020_04_09_compiler_phases_llvm.svg"
+     alt="LLVM can help in the IR code generation, in the optimization and the machine code generation." />
 <figcaption>
-The scale of the black boxes now represent the effort and knowledge needed for
-creating that modules.
+Figure 10: LLVM can help in the IR code generation, in the optimization and
+the machine code generation.
 </figcaption>
-</div>
+</figure>
 
-*Only two boxes and a half?!*
-You say.
-*Then I prefer not to learn LLVM and learn how to do it by myself*.
-Ok, wait a moment.
+*Hmmm... LLVM only helps in two boxes and a half?*
+You may say.
+OK, wait a moment.
 Maybe we can change the size of the boxes and make the optimizer and code
 generation phases bigger.
 
-<div style="text-align: center">
-<img src="/assets/images/2020_04_09_compiler_phases_llvm_big.svg" />
+<figure id="figure11" style="text-align: center">
+<img src="/assets/images/2020_04_09_compiler_phases_llvm_big.svg"
+     alt="Updated diagram with the size of the black boxes proportional to the difficulty of builing them." />
 <figcaption>
-The scale of the black boxes now represent the effort and knowledge needed for
-creating that modules.
+Figure 11: The scale of the black boxes now represent the effort and knowledge
+needed for creating that modules.
 </figcaption>
-</div>
+</figure>
 
 Better now?
-The last phases are too difficult to implement and they required a lot of
+The last phases are really difficult to implement and they required a lot of
 knowledge, so using LLVM is going to save us lot of time.
 The optimizer is the hardest part, a lot of dark knowledge is involved there.
 Also, the machine code generator requires a lot of low level knowledge of the
 CPU architecture.
 LLVM adds support for the most common CPUs and the facility to add a custom
-backend to generate code for our own CPUs.
+back end to generate code for our own CPUs.
 
 
 ## 3.3. C++
@@ -518,10 +538,11 @@ For those reasons, **C++ is the chosen option**.
 
 What about the compiler used to compile my compiler?
 I thing this election is pretty straightforward: **clang++**.
-That's the LLVM C++ frontend.
+That's the LLVM C++ front end.
 It's also good to have the clang compiler installed because it's useful to
-observe the generated IR output and compare to our language generated IR.
-We will talk more about this in the next post.
+observe the generated C++ IR output and compare it to the IR output generated
+by our language.
+We will talk more about this in the next posts.
 
 
 # 4. What's next?
@@ -556,6 +577,7 @@ See you in the [next post][nextPost]!!
   *Alfred V. Aho, Monica S. Lam, Ravi Sethi and Jeffrey D. Ullman*.
   Second Edition.
   Chapter 1, sections 1.1 and 1.2.
+  **Highly recommender reading**.
 * [Introduction to LLVM][llvmIntro] by Chris Lattner.
 
 
