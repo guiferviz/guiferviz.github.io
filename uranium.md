@@ -1,16 +1,24 @@
 ---
 layout: page
 title: Uranium series
+description: >
+    A series of post about how to build a compiler for your own programming
+    language with Flex, Bison and LLVM.
 permalink: /uranium/
+
+font-awesome: true
 ---
+
+<div style="text-align: center">
+<a href="https://github.com/guiferviz/uranium" target="_blank">
+Uranium GitHub <i class="fab fa-github"></i> repository
+</a>
+</div>
 
 <figure id="uraniumLogo" style="text-align: center">
 <img src="/assets/images/2020_04_09_uranium_logo.svg"
-     width="400"
+     width="250"
      alt="Uranium logo." />
-<figcaption>
-A bunch of radioactive zeros and ones that will soon destroy you.
-</figcaption>
 </figure>
 <style>
 

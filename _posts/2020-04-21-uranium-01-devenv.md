@@ -13,13 +13,15 @@ tags: [Compilers, Uranium, LLVM, Flex, Bison]
 
 mathjax: false
 comments: true
+font-awesome: true
 ---
 
-In the last post I introduced the Uranium project, the motivations around it
-and some basic explanations around compilers.
+In the [first post][prevPost] I introduced the
+<span style="color: green;">**Uranium**</span> project, the motivations around
+it and some basic explanations around compilers.
 So far so good, no radiation in the air.
 
-As a first milestone, I set the generation of some basic IR code that I can
+As a **first milestone**, I set the generation of some basic IR code that I can
 compile using LLVM.
 For both generating the IR code and compiling the code we are going to use
 LLVM.
@@ -31,33 +33,37 @@ generate a collection of objects that I can easily dump in IR code.
 {% include toc.html %}
 
 
-# 1. Compiling and installing LLVM
+# 1. Compiling and installing LLVM and Clang
 
-Before using LLVM you need to install it.
+Obviously, before using LLVM and Clang I needed to install them.
 If you don't want to build your own binaries, you can use a **pre-build**
 distribution if your platform is among those available.
-I didn't try it, but I know it's an option.
+I'm using Linux Mint that is based on Ubuntu, so I suppose that there are
+pre-build binaries for my Linux distribution.
+Anyway, I didn't try to install them but I know it's an option.
 I'm trying to build a compiler, so I prefer to compile the compiler that is
 going to help me to compile my compiler ^.^
 
-**Compiling** LLVM was **easier than I expected**.
+**Compiling** LLVM and Clang was **easier than I expected**.
 The most difficult part was waiting until the end of the compilation.
 You only need patience (and *CMake* and a modern *C++ compiler* :).
 
 The documentation specifies the requirements and the
-[build and installation process][llvmInstall]
+[build and installation process][llvmInstall]{:target="_blank"}
 quite well.
-Using [CMake for building][llvmCMake] the libraries is the easier way.
+Using [CMake for building][llvmCMake]{:target="_blank"} the libraries is the
+easier way.
 I know it is well described there, but anyways, I'm going to post here the
 process with the exact commands I ran.
 
-Use *git clone* or download a package with an specific version.
+This is the [LLVM repository][llvmRepo]{:target="_blank"}.
+You can use *git clone* or download a package with an specific LLVM version.
 For example, for installing the version 10.0.0 using git your should execute:
-```cmd
+{% highlight cmd %}
 git clone https://github.com/llvm/llvm-project.git
 cd llvm-project
 git checkout llvmorg-10.0.0
-```
+{% endhighlight %}
 
 The version 10.0.0 was the last stable version at the time of writing.
 You can explore the existing tags in the repository with `git tag -l`.
@@ -69,13 +75,14 @@ mkdir build
 cd build
 {% endhighlight %}
 
-And now we need to generate the `Makefile`s using *CMake*.
+And now you need to generate the `Makefile`s using CMake.
 We can pass several variables to CMake to change the generated build files.
 Some of the options I used were:
 
 * `CMAKE_INSTALL_PREFIX`: Where the libraries are going to be installed.
   By default they are installed in `/usr/local` but thinking about the future
   I preferred to create a separate directory for each version I had compile.
+  I set this variable to `/usr/local/llvm10`.
 * As I said in the previous post, `clang` is the C++ compiler we are going to
   use.
   Apart from compile our compiler, `clang` is going to be very useful for
@@ -86,55 +93,65 @@ Some of the options I used were:
   to the variable `LLVM_ENABLE_PROJECTS`.
 
 The line I ran was:
-```cmd
+{% highlight cmd %}
 cmake \
   -DCMAKE_INSTALL_PREFIX=/usr/local/llvm10 \
   -DLLVM_ENABLE_PROJECTS=clang \
   -G "Unix Makefiles" ../llvm
-```
+{% endhighlight %}
 
 You can also compile `clang` later running again the `cmake` command with
 `DLLVM_ENABLE_PROJECTS`.
 You don't even need the repeat the `CMAKE_INSTALL_PREFIX` variable if you did
 it before:
-```cmd
+{% highlight cmd %}
 cmake \
   -DLLVM_ENABLE_PROJECTS=clang \
   -G "Unix Makefiles" ../llvm
-```
+{% endhighlight %}
 
 Compile the code just with a simple `make` command.
 The compilation process for LLVM + clang takes around 4 hours in my computer.
-```cmd
+{% highlight cmd %}
 make
-```
+{% endhighlight %}
 
 Once compiled, **install** the binaries.
 If your install directory does not exists, you need to create it first.
-```cmd
+{% highlight cmd %}
 sudo mkdir /usr/local/llvm10
 sudo make install
-```
+{% endhighlight %}
+
+
+## 1.1. Build documentation
 
 If you want to **build the documentation** you can re-execute the `cmake` with
 the `LLVM_ENABLE_DOXYGEN` variable active.
 I tried to build the documentation with *Sphynx* but I was getting an
 "Warning treated as error" that didn't allow me to finish the docs generation.
 *Doxygen* is working well for me:
-```cmd
+{% highlight cmd %}
 cmake \
   -DLLVM_ENABLE_DOXYGEN=On \
   -G "Unix Makefiles" ../llvm
 make doxygen-llvm
 sudo make install
-```
+{% endhighlight %}
 
 Your documentation is ready in `build/docs/doxygen/html/index.html`.
 If you install it, you can also find it in your install directory,
 `<install-dir>/docs/html/html/index.html`.
 For example, in my case it is in `/usr/local/llvm10/docs/html/html/index.html`.
 Keep in mind that this documentation is only for the LLVM libraries and does
-not include `clang` documentation or any other extra tutorials.
+not include clang documentation or any other extra tutorials.
+
+I tried to install the clang documentation after installing the LLVM
+documentation and it turns out that the clang documentation overwrites the
+LLVM documentation.
+Maybe I did something wrong, but I didn't invest time on solving the problem.
+Why? Read the next paragraph.
+
 If you do not want to generate the documentation you can use the online
 version.
 Just be sure that you are using the documentation of the installed version of
@@ -144,62 +161,98 @@ For example, for the [version 10.0.0][llvm10docs] that I installed I need to
 use the given link.
 
 
-# Check the installation
+# 2. Installing Flex and Bison
 
-Add the `bin` directory under your install folder to the `PATH` environment
-variable if you want to use all the LLVM tools easily.
+This step in Ubuntu is pretty easy:
+{% highlight cmd %}
+sudo apt-get install flex bison
+{% endhighlight %}
+
+If you want to compile from source or install them in a different system
+you will need to do a web search.
+
+
+# 3. Check the installation
+
+If you want to use all the LLVM tools easily, add the `bin` directory under
+your install folder to the `PATH` environment variable.
 Add the following line to your `~/.bashrc` file:
-```cmd
+{% highlight cmd %}
 export PATH=$PATH:/usr/local/llvm10/bin
-```
+{% endhighlight %}
 
 Using this approach you can easily select the version of LLVM you can use
 in your projects.
+Just change the value of the `PATH` variable.
 
 Restart your *Shell* and execute `clang --version` and later `lli --version`.
-The system should find the existing executable files and show the next output
-for `clang --version`:
-```cmd
+The system should find the existing executable files and show the next outputs.
+
+`clang --version`:
+{% highlight cmd %}
 clang version 10.0.0 (https://github.com/llvm/llvm-project.git d32170dbd5b0d54436537b6b75beaf44324e0c28)
 Target: x86_64-unknown-linux-gnu
 Thread model: posix
 InstalledDir: /usr/local/llvm10/bin
-```
-and for `lli --version`:
-```cmd
+{% endhighlight %}
+
+`lli --version`:
+{% highlight cmd %}
 LLVM (http://llvm.org/):
   LLVM version 10.0.0
   DEBUG build with assertions.
   Default target: x86_64-unknown-linux-gnu
   Host CPU: skylake
-```
+{% endhighlight %}
+
+**Check** also the **Flex and Bison** installation.
+
+`flex --version`:
+{% highlight cmd %}
+flex 2.6.4
+{% endhighlight %}
+
+`bison --version`:
+{% highlight cmd %}
+bison (GNU Bison) 3.0.4
+Written by Robert Corbett and Richard Stallman.
+
+Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+{% endhighlight %}
 
 
-# Next step
+# 4. Next step
 
 After compiling, installing and checking that the binaries are in the correct
 path, we are going to **compile our first program using the LLVM libraries**.
-For doing that we need a proper way to compile our code.
-As LLVM, we are going to use CMake for generating our `Makefile`s.
+For doing that we need a proper way to build our code.
+Like LLVM, I'm going to use CMake for generating a `Makefile`.
 See you in the [next post][nextPost]!!
 
 
-# References
+# 5. References
 
-No more references, apart from the given links, are been used for this
-post.
+Apart from the given links, no more references are been used for this post.
 Here are all the links used in this page:
 
 * [LLVM Install page][llvmInstall].
 * [LLVM CMake page][llvmCMake].
 * [LLVM Docs for the 10.0.0 version][llvm10docs].
 * [All LLVM Releases][llvmReleases].
+* [LLVM GitHub Repository][llvmRepo].
+
+To make it easier, I've created an
+[index page with all the Uranium posts][uraniumSeries].
 
 
 [llvmInstall]: https://llvm.org/docs/GettingStarted.html#getting-the-source-code-and-building-llvm
 [llvmCMake]: https://llvm.org/docs/CMake.html
 [llvm10docs]: https://releases.llvm.org/10.0.0/docs/index.html
 [llvmReleases]: https://releases.llvm.org/
-[nextPost]: /2020/04/11/uranium-02-ir-generation.html
-[prevPost]: /2020/04/09/uranium-00-motivations.html
+[llvmRepo]: https://github.com/llvm/llvm-project/
+[nextPost]: /TODO
+[prevPost]: {% post_url 2020-04-09-uranium-00-introduction %}
+[uraniumSeries]: /uranium
 

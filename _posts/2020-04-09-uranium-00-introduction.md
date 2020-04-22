@@ -567,8 +567,11 @@ I will improvise according to my mood and the time I have.
 Broadly speaking, those are the steps I'll be taking.
 My idea is to define small milestones and write articles about them.
 For example, the next objective is to set up the development environment:
-download, compile and install LLVM.
+download, compile and install LLVM and install Flex and Bison.
 See you in the [next post][nextPost]!!
+
+To make it easier, I've created an
+[index page with all the Uranium posts][uraniumSeries].
 
 
 # 5. References
@@ -582,6 +585,7 @@ See you in the [next post][nextPost]!!
 
 
 [llvmIntro]: https://www.aosabook.org/en/llvm.html
-[nextPost]: /2020/04/10/uranium-01-compiling-llvm.html
+[nextPost]: {% post_url 2020-04-21-uranium-01-devenv %}
+[uraniumSeries]: /uranium
 [rosettaArm]: https://rosettacode.org/wiki/Loops/Do-while#ARM_Assembly
 
