@@ -576,7 +576,7 @@ To make it easier, I've created an
 
 # 5. References
 
-* *Compilers: Principles, Techniques, & Tools* by
+* [*Compilers: Principles, Techniques, & Tools*][dragonBook] by
   *Alfred V. Aho, Monica S. Lam, Ravi Sethi and Jeffrey D. Ullman*.
   Second Edition.
   Chapter 1, sections 1.1 and 1.2.
@@ -588,4 +588,5 @@ To make it easier, I've created an
 [nextPost]: {% post_url 2020-04-21-uranium-01-devenv %}
 [uraniumSeries]: /uranium
 [rosettaArm]: https://rosettacode.org/wiki/Loops/Do-while#ARM_Assembly
+[dragonBook]: https://suif.stanford.edu/dragonbook/
 
