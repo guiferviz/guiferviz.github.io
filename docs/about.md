@@ -1,5 +1,4 @@
 ---
-layout: page
 title: About
 permalink: /about/
 ---
@@ -45,10 +44,6 @@ y... ¡hasta respondo a algunos mensajes!
 Cotilléame los perfiles o sígueme para saber algo más de mi y enterarte de las
 futuras novedades de este blog.
 
-{% include social-me.html %}
-
-<br />
-
 
 # ¿Por qué este blog?
 
@@ -70,11 +65,6 @@ La idea de crear un blog como éste viene de muy atrás, pero la falta de tiempo
 y mi perfeccionismo no me dejó empezarlo... hasta hoy.
 Es aquí donde me veo obligado a citar a Reid Hoffman.
 
-<style>
-    blockquote {
-        font-size: 21px;
-    }
-</style>
 > "Si no te avergüenza la primera versión de tu producto, lo lanzaste muy tarde"
 >
 > -- Reid Hoffman, cofundador de LinkedIn
@@ -95,4 +85,3 @@ desinteresada en la red.
 Les agradezco de todo corazón sus aportes, aportes que entre la gran cantidad
 de datos que hay en Internet son insignificantes, pero que para mí han marcado
 la diferencia.
-

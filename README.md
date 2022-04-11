@@ -1,7 +1,3 @@
+# Guiferviz's blog
 
-Guiferviz's blog
-================
-
-[https://guiferviz.github.io/](https://guiferviz.github.io/)
-
-:-)
+[https://guiferviz.com/](https://guiferviz.com/) :-)
