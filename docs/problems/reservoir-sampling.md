@@ -1,20 +1,14 @@
 ---
-layout: post
-
-title: Reservoir sampling
-excerpt: >
+description: >
     ¿Cómo obtener aleatoriamente un elemento de un streaming (del que no
     sabemos cuándo va a terminar) sin tener que almacenar todos los elementos?
     Reservoir sampling lo consigue en complejidad temporal lineal y espacial
-    constante.
-    Aquí te lo explico con todo lujo de detalles.
-date: 2020-01-27
-slug: reservoir-sampling
+    constante. Aquí te lo explico con todo lujo de detalles.
 tags: [Algorithms, Random]
-
-mathjax: true
-comments: true
+icon: material/image-size-select-small
 ---
+
+# 🇪🇸 Reservoir sampling
 
 Cuando se trata de elegir un elemento aleatorio con igual probabilidad de entre
 los elementos de un array lo primero que hacemos es buscar el "método random

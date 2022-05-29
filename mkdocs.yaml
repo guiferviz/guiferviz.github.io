@@ -5,9 +5,30 @@ copyright: Copyright © 1994-2022 by Guiferviz
 repo_url: https://github.com/guiferviz/guiferviz.github.io
 repo_name: Guiferviz's Blog
 docs_dir: docs
-strict: true
+strict: false
+
 theme:
     name: material
+    custom_dir: material
+    logo: assets/images/logo.png
+    favicon: assets/images/favicon.ico
+    language: en
+    features:
+      - navigation.tabs
+      - navigation.indexes  # Use index.md as section page.
+      # - navigation.tabs.sticky  # Always show tabs.
+      # - header.autohide
+      # - navigation.sections  # Expand sections 1 level.
+      #- content.code.annotate
+      # - content.tabs.link
+      # - navigation.expand
+      # - navigation.instant
+      # - navigation.top
+      # - navigation.tracking
+      # - search.highlight
+      # - search.share
+      # - search.suggest
+      # - toc.follow
     palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -23,7 +44,11 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
+
 plugins:
+    - mkdocs-jupyter
+    - pdf-export:
+        enabled_if_env: ENABLE_PDF_EXPORT
     - tags:
         tags_file: tags.md
     - search
@@ -56,9 +81,11 @@ markdown_extensions:
     - pymdownx.details
 
 extra_javascript:
-  - javascripts/mathjax.js
+  # MathJax.
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  # p5js
+  - https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js
 
 extra:
   generator: false
@@ -76,4 +103,10 @@ extra:
 # Page tree
 nav:
     - Home: index.md
+    - Best Practices:
+      - best_practices/index.md
+      - best_practices/notebooks_downsides.md
+    - Programming Problems:
+      - problems/reservoir-sampling.md
+      - problems/euler-phi-totient-function.md
     - Tags: tags.md
