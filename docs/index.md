@@ -51,9 +51,7 @@ hola
             };
 
             p.setup = function () {
-                canvas = p.createCanvas(width, height, p.WEBGL);
-                canvas.elt.style.width = "100%";
-                canvas.elt.style.height = "100%";
+                p.createCanvas(width, height, p.WEBGL);
 
                 p.smooth();
 
