@@ -106,6 +106,7 @@ nav:
     - Best Practices:
       - best_practices/index.md
       - best_practices/notebooks_downsides.md
+      - best_practices/do_not_number_steps.md
     - Programming Problems:
       - problems/reservoir-sampling.md
       - problems/euler-phi-totient-function.md
