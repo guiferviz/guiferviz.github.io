@@ -1,12 +1,18 @@
-# When to use Python notebooks
+# When to stop using Python notebooks
+
+!!! TLDR "TLDR"
+
+    Use notebooks just for ad-hoc projects, PoCs, experiments or when you need
+    visualizations. Use Python packages for any other use case.
 
 In both **data engineering** and **data science**, the use of **notebooks is
 widespread**. It is very easy and intuitive to open a Jupyter/Databricks
 notebook in your favourite browser and start executing commands. Pretty much
-anyone can train a machine learning model in 3 or 4 lines. Writing code to
-migrate 100 tables from one storage account to another can be done in a matter
-of minutes. This ease of use is a positive aspect of notebooks, but they can
-also be a double-edged sword if you don't know **when to stop using them**.
+anyone can train a machine learning model coping and pasting 4 lines of code.
+Writing code to migrate 100 tables from one storage account to another can be
+done in a matter of minutes. This ease of use is a positive aspect of
+notebooks, but they can also be a double-edged sword if you don't know **when
+to stop using them**.
 
 As a data engineer, I have come across many large projects that are purely
 developed with notebooks. Notebooks are a powerful tool, do not get me wrong,
@@ -18,6 +24,29 @@ multiple projects.
 This post is mainly focus on Python and Databricks and, of course, is very
 opinionated. I will be happy to discuss any of the points presented here with
 anyone who disagrees.
+
+
+## What is a product/library/framework?
+
+I just said that using notebooks for products, libraries or frameworks is not
+the right thing to do. What do I mean by products, libraries or frameworks?
+What are the characteristics of such projects?
+
+* We need quality code. This includes the usage of linters, type checkers and
+consistent formatting and import order.
+* Tested code. The more projects are using the library/framework the more
+important it is to have them well tested and maintained.
+* You want to have a better control of your requirements.
+* Consistent versioning: do not overwrite old versions with new code. If a
+project is using an specific version of your library, the artifact stored under
+that version number should never change.
+* Libraries/frameworks should be easy to use across different projects, more
+than one version should exists at the same time to support old projects that
+are not up to date.
+
+In general, products, libraries and frameworks should be reliable, well tested,
+and they need to follow the best software engineering practices. This post does
+not apply for ad-hoc analytics, PoCs or any *quick and dirty* projects.
 
 
 ## What is the alternative?
@@ -52,26 +81,15 @@ aspects. Keep reading to find out what I mean.
     [sbt](https://www.scala-sbt.org).
 
 
-## Products and libraries/frameworks
-
-Products should be reliable, well tested, they need to follow the best software
-engineering practices.
-
-Libraries/frameworks should be easy to use across different projects, more than
-one version should exists at the same time to support old projects that are not
-up to date. Of course, the more projects are using the libraries the more
-important it is to have something well tested and maintained.
-
-
 ## Boilerplate code VS Python package
 
 We do not usually start new projects from an empty directory. In the best
 case we have a template that we clone, other times we just copy and existing
 project and remove those parts that are not needed for our new project.
 
-If you are building some kind of internal framework for your company, we need
+If you are building some kind of internal framework for your company, you need
 to clarify the differences between your framework and the projects that are
-going to use your framework.
+going to use it.
 
 Having a Python package does not mean that we no longer need a project template
 which we have to clone when we want to start new projects. It is still
@@ -80,13 +98,21 @@ should be as minimal as possible. Project templates should call functions
 defined in the library and there should be no business logic in them, just a
 skeleton ready to be completed by the developer.
 
+It is also possible to have a library with common code and import it from a
+notebook! The important thing is that the library with common code should be a
+Python package that follows good practices. Who, how and when we use the library
+is out of scope of this post.
+
 !!! tip
 
     [CookieCutter](https://github.com/cookiecutter/cookiecutter) is a nice tool
     for building templates :)
 
 
-## Magic and DBUtils
+## Comparison
+
+
+### Magic and DBUtils
 
 Python magic and Databricks DBUtils are cool, but they only work on
 Jupyter/Databricks. When we work on notebooks it is really easy to end up using
@@ -95,8 +121,13 @@ this kind of tools. For example, if you avoid using
 because it cannot be done in a Python package, you will get much more portable
 code.
 
+DBUtils can be used from a Python package, but it is not as easy as writing
+`dbutils`. If you develop locally and you want your code to run locally you will
+prioritize different tools/options before using DBUtils, which gives you again
+more portable code.
 
-### Run magic VS Python imports
+
+#### Run magic VS Python imports
 
 Databricks has a Python magic used to run other notebooks. In addition to
 making the code less portable, the use of `%run` can lead to other problems.
@@ -134,6 +165,7 @@ discouraged](https://stackoverflow.com/questions/2386714/why-is-import-bad)
 because it makes the code very difficult to follow and can overwrite
 existing local variables. It is specially difficult in notebooks where we
 cannot use the _Go to definition_ option that we usually have in powerful IDEs.
+
 Moreover, sometimes even the powerful IDEs and their linters cannot tell where
 functions come from if the fearsome `import *` is used.
 
@@ -148,7 +180,7 @@ to run notebooks, but they are executed in a different process, so we cannot
 compare that with Python imports.
 
 
-## Share folders VS Python Package Index
+### Share folders VS Python Package Index
 
 A common way to deploy projects made with notebooks is to copy the files to a
 shared directory such as `/Share` in Databricks. This brings two main problems.
@@ -170,8 +202,12 @@ in the Databricks Workspace or, even worse, hot fixes that are applied on the
 deployed files are never applied in the repository so they are lost after the
 next deployments. Once a version is deployed is should never be modified.
 
+* Databricks has the option of using Git repositories. I honestly never
+explored in-depth that feature, but it looks to be impossible to maintain more
+than one version of your code published at the same time.
+
 [Artifactory](https://jfrog.com/artifactory/) or any server that allow us to
-deploy Python packages can solve this problem. Every deployment should have a
+deploy Python packages can solve this problems. Every deployment should have a
 different version, you cannot replace existing deployed versions. In your
 cluster or in your job definition you can specify the version you want to use
 in your project and you can upgrade it when you decide. No more errors due to
@@ -188,7 +224,7 @@ imports do not use paths like `%run` does. And we do not need to modify the
     [semantic-release](https://github.com/semantic-release/semantic-release).
 
 
-## Dependency management
+### Dependency management
 
 In Python packages you can include dependencies and specify the minimum and
 maximum compatible versions. You can also use tools like
@@ -196,21 +232,36 @@ maximum compatible versions. You can also use tools like
 [pip-compile](https://github.com/jazzband/pip-tools) to lock the versions of
 the dependencies. This is difficult to achieve in notebooks.
 
-Locking your dependencies is specially useful when creating Docker images for
-our products. We must be able to exactly reproduce the build of our images. If
-instead of creating our images with the already tested dependencies (the ones
-in our lock file) we rely on the latest versions installed by `pip`, there is
-no guarantee that the code will work.
+**Locking your dependencies is specially useful** when creating Docker images
+for our **products**. We must be able to exactly reproduce the build of our
+images. If instead of creating our images with the already tested dependencies
+(the ones in our lock file) we rely on the latest versions installed by `pip`,
+there is no guarantee that the code will work.
 
-For libraries/frameworks we should deploy our requirements with our package.
-I have seen libraries that contain a `requirements.txt` file with pinned
-versions of its dependencies, but the package is build without any information
-of those dependencias. If you are using Poetry this is unlikely to happen, but
-with setuptools is common. Remember to add your dependencies with lower and
-upper bounds on the versions and 
+For **libraries/frameworks we should include the information about our
+dependencies** within the package. I do not mean to include all the related
+wheels inside our wheel, no, just the metadata of what packages and versions
+need to be installed with our package. I have seen libraries that contain a
+`requirements.txt` file with pinned versions of its dependencies, but the
+package is build without any information about those dependencies.
+
+!!! Tip
+
+    You know that your package does not have metadata about your requirements
+    when you run a `pip install <your-package>` and just your package is
+    installed.
+
+    When using Poetry always use `poetry add <your-dependency>` instead of
+    `pip install <your-dependency>`. The latter just installs the dependency
+    in your local environment and does not add it to the package.
+
+!!! Warning
+
+    Remember to add your dependencies with lower and upper bounds on the
+    versions to avoid surprises.
 
 
-## Local development
+### Local development
 
 Using Python libraries you can build, run and test your code locally, saving
 costs in cloud computing. Most of the time we do not need to work on big
@@ -269,7 +320,7 @@ someone.
 **When are notebooks useful?**
 
 * When we want to run ad-hoc queries/visualizations.
-* When prototyping.
+* When prototyping or running PoCs.
 * When we want to experiment with data that takes some time to load in memory.
 
 **When notebooks should be avoided?**
