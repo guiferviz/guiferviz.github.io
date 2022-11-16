@@ -1,8 +1,7 @@
 ---
-template: overrides/index.html
+template: index.html
 ---
 
-hola 
 <script>
     window.addEventListener("load", function () {
         var sketch = function( p ) {

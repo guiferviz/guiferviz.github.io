@@ -1,4 +1,5 @@
 ---
+comments: true
 description: >
     ¿Cómo obtener aleatoriamente un elemento de un streaming (del que no
     sabemos cuándo va a terminar) sin tener que almacenar todos los elementos?

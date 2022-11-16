@@ -9,7 +9,7 @@ strict: false
 
 theme:
     name: material
-    custom_dir: material
+    custom_dir: overrides
     logo: assets/images/logo.png
     favicon: assets/images/favicon.ico
     language: en
@@ -52,6 +52,7 @@ plugins:
     - tags:
         tags_file: tags.md
     - search
+
 markdown_extensions:
     - meta
     # Code highlight.

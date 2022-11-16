@@ -1,4 +1,5 @@
 ---
+comments: true
 description: >
     Aprendiendo sobre la función Phi de Euler motivado por la resolución de un
     problema de CodeForces.
