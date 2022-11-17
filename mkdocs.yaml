@@ -51,6 +51,10 @@ plugins:
         enabled_if_env: ENABLE_PDF_EXPORT
     - tags:
         tags_file: tags.md
+        tags_allowed:
+          - Best practices
+          - Notebooks
+          - Python
     - search
 
 markdown_extensions:
@@ -80,6 +84,7 @@ markdown_extensions:
     # Superfences admonition.
     - admonition
     - pymdownx.details
+    - md_in_html
 
 extra_javascript:
   # MathJax.
@@ -111,4 +116,7 @@ nav:
     - Programming Problems:
       - problems/reservoir-sampling.md
       - problems/euler-phi-totient-function.md
+    - Math:
+      - math/maximum-likelihood-estimation-1.md
+      - math/maximum-likelihood-estimation-2.md
     - Tags: tags.md
